@@ -4,12 +4,12 @@ package network;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
-import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.net.Socket;
+
+import model.ProxyCarnet;
 
 public class TCPClient {
-
+	
 	public static final String HOSTNAME = "hostname";
 	public static final int PORT = 8080;
 	
@@ -23,8 +23,10 @@ public class TCPClient {
 				new BufferedReader(new InputStreamReader(System.in));
 		
 		try {
-			Socket clientSocket = new Socket(HOSTNAME, PORT);
+			
+			ProxyCarnet proxyCarnet = new ProxyCarnet(HOSTNAME, PORT);
 		
+			
 			DataOutputStream outToServer = 
 					new DataOutputStream(clientSocket.getOutputStream());
 			
