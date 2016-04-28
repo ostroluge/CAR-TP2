@@ -1,8 +1,6 @@
 package model;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
@@ -19,40 +17,80 @@ public class ProxyCarnet implements Repertoire {
 	private ObjectOutputStream fluxOut;
 	private ObjectInputStream fluxIn;
 	
-	private BufferedReader outFromClient;
-	private BufferedReader inFromServer;
-
 	public ProxyCarnet(String hostname, int port) {
 		try {
 			this.clientSocket = new Socket(hostname, port);
 			this.fluxOut = new ObjectOutputStream(clientSocket.getOutputStream());
 			this.fluxIn = new ObjectInputStream(clientSocket.getInputStream());
-			this.outFromClient = new BufferedReader(new InputStreamReader(fluxOut));
-			this.inFromServer = new BufferedReader(new InputStreamReader(fluxIn));
 		} catch (Exception e) {
 			System.out.println(e);
 		}
 	}
 
 	public boolean ajouterPersonne(Personne personne) {
+		
+		boolean result = false;
+		
+		try {
+			fluxOut.writeInt(AJOUTER_PERSONNE);
+			fluxOut.writeObject(personne);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
-
-		return false;
+		try {
+			result = fluxIn.readBoolean();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
 	}
 
 	public boolean modifierPersonne(Personne personne) {
 
+		boolean result = false;
 
-		return false;
+		try {
+			fluxOut.writeInt(MODIFIER_PERSONNE);
+			fluxOut.writeObject(personne);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		try {
+			result = fluxIn.readBoolean();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} 
+		
+		return result;
 	}
 
 	public boolean retirerPersonne(String nom) {
 
-		return false;
+		boolean result = false;
+		
+		try {
+			fluxOut.writeInt(RETIRER_PERSONNE);
+			fluxOut.writeBytes(nom);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			result = fluxIn.readBoolean();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
 	}
 
 	public Personne chercherPersonne(String nom) {
 
+		Personne personne = null;
+		
 		try {
 			fluxOut.writeInt(CHERCHER_PERSONNE);
 			fluxOut.writeBytes(nom);
@@ -60,12 +98,36 @@ public class ProxyCarnet implements Repertoire {
 			e.printStackTrace();
 		}
 
-		return null;
+		try {
+			personne = (Personne) fluxIn.readObject();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return personne;
 	}
 
 	public String[] listerPersonnes() {
+		
+		String[] personnes = null;
+		
+		try {
+			fluxOut.writeInt(LISTER_PERSONNES);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
-		return null;
+		try {
+			personnes = (String[]) fluxIn.readObject();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return personnes;
 	}
 
 	public Socket getClientSocket() {
