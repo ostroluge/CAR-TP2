@@ -1,10 +1,14 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Carnet implements Repertoire {
 
+	public List<Personne> personnes = new ArrayList<>();
+	
 	public boolean ajouterPersonne(Personne personne) {
-		// TODO Auto-generated method stub
-		return false;
+		return personnes.add(personne);
 	}
 
 	public boolean modifierPersonne(Personne personne) {
@@ -13,17 +17,28 @@ public class Carnet implements Repertoire {
 	}
 
 	public boolean retirerPersonne(String nom) {
-		// TODO Auto-generated method stub
+		for (Personne personne : personnes) {
+			if (personne.nom.equals(nom)) {
+				return personnes.remove(personne);
+			}
+		}
 		return false;
 	}
 
 	public Personne chercherPersonne(String nom) {
-		// TODO Auto-generated method stub
+		for (Personne personne : personnes) {
+			if (personne.nom.equals(nom)) {
+				return personne;
+			}
+		}
 		return null;
 	}
 
 	public String[] listerPersonnes() {
-		// TODO Auto-generated method stub
+		String[] arrayPersonnes;
+		for (Personne personne : personnes) {
+		
+		}
 		return null;
 	}
 
