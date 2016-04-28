@@ -32,8 +32,12 @@ public class ProxyCarnet implements Repertoire {
 		boolean result = false;
 		
 		try {
-			fluxOut.writeInt(AJOUTER_PERSONNE);
-			fluxOut.writeObject(personne);
+			
+			Instruction instruction = new Instruction();
+			instruction.codeInstruction = AJOUTER_PERSONNE;
+			instruction.personne = personne;
+			
+			fluxOut.writeObject(instruction);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -52,8 +56,11 @@ public class ProxyCarnet implements Repertoire {
 		boolean result = false;
 
 		try {
-			fluxOut.writeInt(MODIFIER_PERSONNE);
-			fluxOut.writeObject(personne);
+			Instruction instruction = new Instruction();
+			instruction.codeInstruction = MODIFIER_PERSONNE;
+			instruction.personne = personne;
+			
+			fluxOut.writeObject(instruction);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -72,8 +79,12 @@ public class ProxyCarnet implements Repertoire {
 		boolean result = false;
 		
 		try {
-			fluxOut.writeInt(RETIRER_PERSONNE);
-			fluxOut.writeBytes(nom);
+			
+			Instruction instruction = new Instruction();
+			instruction.codeInstruction = RETIRER_PERSONNE;
+			instruction.nomPersonne = nom;
+			
+			fluxOut.writeObject(instruction);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -92,8 +103,12 @@ public class ProxyCarnet implements Repertoire {
 		Personne personne = null;
 		
 		try {
-			fluxOut.writeInt(CHERCHER_PERSONNE);
-			fluxOut.writeBytes(nom);
+			
+			Instruction instruction = new Instruction();
+			instruction.codeInstruction = CHERCHER_PERSONNE;
+			instruction.nomPersonne = nom;
+			
+			fluxOut.writeObject(instruction);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -114,7 +129,11 @@ public class ProxyCarnet implements Repertoire {
 		String[] personnes = null;
 		
 		try {
-			fluxOut.writeInt(LISTER_PERSONNES);
+			
+			Instruction instruction = new Instruction();
+			instruction.codeInstruction = LISTER_PERSONNES;
+			
+			fluxOut.writeObject(instruction);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

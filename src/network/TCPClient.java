@@ -1,11 +1,5 @@
 package network;
 
-
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.InputStreamReader;
-import java.io.ObjectOutputStream;
-
 import model.ProxyCarnet;
 
 public class TCPClient {
@@ -14,35 +8,9 @@ public class TCPClient {
 	public static final int PORT = 8080;
 	
 	public static void main(String[] args) {
-		int anInteger = 0;
-		boolean aBoolean = false;
-		String aString = null;
-		Object anObject = null;
 		
-		BufferedReader inFromUser =
-				new BufferedReader(new InputStreamReader(System.in));
-		
-		try {
-			
+		try {	
 			ProxyCarnet proxyCarnet = new ProxyCarnet(HOSTNAME, PORT);
-		
-			
-			DataOutputStream outToServer = 
-					new DataOutputStream(clientSocket.getOutputStream());
-			
-			BufferedReader inFromServer = 
-					new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-			
-			// traitement des variables a envoyer
-			
-			ObjectOutputStream fluxOut = new ObjectOutputStream(outToServer);
-			fluxOut.writeInt(anInteger);
-			fluxOut.writeBoolean(aBoolean);
-			fluxOut.writeUTF(aString);
-			fluxOut.writeObject(anObject);
-			
-			// traitement du retour du serveur
-	
 			
 		} catch (Exception e) {
 			System.out.println(e);
