@@ -1,4 +1,6 @@
-package model;
+package message;
+
+import model.Personne;
 
 public class Instruction {
 

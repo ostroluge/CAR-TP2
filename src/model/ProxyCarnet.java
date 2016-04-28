@@ -5,6 +5,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
+import message.Instruction;
+
 public class ProxyCarnet implements Repertoire {
 
 	public static final int AJOUTER_PERSONNE = 1;

@@ -7,13 +7,17 @@ public class Carnet implements Repertoire {
 
 	public List<Personne> personnes = new ArrayList<>();
 	
+	public Carnet() {
+		
+	}
+	
 	public boolean ajouterPersonne(Personne personne) {
 		return personnes.add(personne);
 	}
 
 	public boolean modifierPersonne(Personne personne) {
-		// TODO Auto-generated method stub
-		return false;
+		retirerPersonne(personne.nom);
+		return ajouterPersonne(personne);
 	}
 
 	public boolean retirerPersonne(String nom) {
@@ -35,12 +39,12 @@ public class Carnet implements Repertoire {
 	}
 
 	public String[] listerPersonnes() {
-		String[] arrayPersonnes;
+		String[] arrayPersonnes = null;
+		List<String> nomPersonnes = new ArrayList<>();
 		for (Personne personne : personnes) {
-		
+			nomPersonnes.add(personne.nom);
 		}
-		return null;
-	}
-
-	
+		arrayPersonnes = nomPersonnes.toArray(new String[nomPersonnes.size()]);
+		return arrayPersonnes;
+	}	
 }
