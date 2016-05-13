@@ -11,9 +11,8 @@ public class TCPClient {
 		
 		try {	
 			ProxyCarnet proxyCarnet = new ProxyCarnet(HOSTNAME, PORT);
-			
 		} catch (Exception e) {
-			System.out.println(e);
+			e.printStackTrace();;
 		}
 	}
 }

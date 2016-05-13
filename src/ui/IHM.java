@@ -3,6 +3,8 @@ package ui;
 import model.Carnet;
 import model.Personne;
 import model.Repertoire;
+import network.TCPClient;
+import network.TCPServer;
 
 public class IHM
 extends javax.swing.JFrame
@@ -58,6 +60,8 @@ implements java.awt.event.ActionListener, javax.swing.event.ListSelectionListene
 		//
 		fixerRepertoire (null);
 
+		setSize(800, 450);
+		
 		//obtenir le panel contenu par la fenÍtre.
 		java.awt.Container contentPane = super.getContentPane();
 		// Ce panel est organise en 5 zones.
@@ -339,6 +343,11 @@ implements java.awt.event.ActionListener, javax.swing.event.ListSelectionListene
 		// Creation d'un repertoire d'adresses.
 		//carnet = new ????;
 
+		// Initialisation serveur
+		TCPServer server = new TCPServer();
+		// Initialisation client
+		TCPClient client = new TCPClient();
+		
 		// Creer l'IHM.
 		IHM ihm = new IHM();
 		// Lui indiquer le repertoire visualise. 
